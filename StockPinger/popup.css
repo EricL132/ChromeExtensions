@@ -1,0 +1,19 @@
+.old-items{
+    width: 400px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.oldMessages{
+    display: flex;
+    min-height: 200px;
+    flex-direction: column;
+}
+
+.spanItem{
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: .4rem;
+}

@@ -29,7 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 const resinfo = await res.json()
                 console.log(resinfo)
                 if (resinfo.zaiko === 1) {
-                    alert(`https://order.mandarake.co.jp/order/detailPage/item?itemCode=${item.itemid}&ref=list&categoryCode=${item.category}&lang=en`)
+                    const itemName = `${item.category}`
+                    const linkName = `https://order.mandarake.co.jp/order/detailPage/item?itemCode=${item.itemid}&lang=en`
+                    alert(`Item:${item.category}                                                                                          https://order.mandarake.co.jp/order/detailPage/item?itemCode=${item.itemid}&lang=en`)
                     chrome.storage.local.get((data) => {
 
                         const items = data['stockitems']
@@ -42,6 +44,20 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
 
                     })
+
+
+                    chrome.storage.local.get((data)=>{
+                        const time = Date().toString().split("GMT")[0]
+                        const items = data['oldmessages']
+                        if(items){
+                            items.unshift({itemname:itemName,linkname:linkName,time:time})
+                            chrome.storage.local.set({"oldmessages":items})
+                            console.log(items)
+                        }else{
+                            chrome.storage.local.set({"oldmessages":[{itemname:itemName,linkname:linkName,time:time}]})
+                        }
+                        
+                    })
                 }
             })
 
@@ -51,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
 
 
-    }, 2000);
+    }, 3000);
 
 
 })
